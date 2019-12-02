@@ -1,4 +1,4 @@
-package com.youzan.beauty.util;
+package io.github.minpod.firecode;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;

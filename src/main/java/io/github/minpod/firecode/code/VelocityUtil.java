@@ -1,6 +1,6 @@
-package com.youzan.beauty.util.code;
+package io.github.minpod.firecode.code;
 
-import com.youzan.beauty.util.database.Table;
+import io.github.minpod.firecode.database.Table;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;

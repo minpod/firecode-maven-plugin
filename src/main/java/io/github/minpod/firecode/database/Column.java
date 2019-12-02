@@ -1,4 +1,4 @@
-package com.youzan.beauty.util.database;
+package io.github.minpod.firecode.database;
 
 /**
  * Created by mingle.

@@ -1,4 +1,4 @@
-package com.youzan.beauty.util.code;
+package io.github.minpod.firecode.code;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;

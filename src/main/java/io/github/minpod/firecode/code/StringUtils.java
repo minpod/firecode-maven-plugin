@@ -1,4 +1,4 @@
-package com.youzan.beauty.util.code;
+package io.github.minpod.firecode.code;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,9 @@
-package com.youzan.beauty.util;
+package io.github.minpod.firecode;
 
-import com.youzan.beauty.util.code.FileUtil;
-import com.youzan.beauty.util.code.PathUtil;
-import com.youzan.beauty.util.code.VelocityUtil;
-import com.youzan.beauty.util.database.Table;
+import io.github.minpod.firecode.code.FileUtil;
+import io.github.minpod.firecode.code.PathUtil;
+import io.github.minpod.firecode.code.VelocityUtil;
+import io.github.minpod.firecode.database.Table;
 
 import java.io.File;
 

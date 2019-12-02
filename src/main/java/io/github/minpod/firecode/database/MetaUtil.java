@@ -1,6 +1,6 @@
-package com.youzan.beauty.util.database;
+package io.github.minpod.firecode.database;
 
-import com.youzan.beauty.util.code.StringUtils;
+import io.github.minpod.firecode.code.StringUtils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

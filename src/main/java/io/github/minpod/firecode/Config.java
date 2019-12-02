@@ -1,4 +1,4 @@
-package com.youzan.beauty.util;
+package io.github.minpod.firecode;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

@@ -1,4 +1,4 @@
-package com.youzan.beauty.util.database;
+package io.github.minpod.firecode.database;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

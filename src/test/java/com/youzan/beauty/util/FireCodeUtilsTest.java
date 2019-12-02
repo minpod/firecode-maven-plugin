@@ -1,7 +1,8 @@
 package com.youzan.beauty.util;
 
-import com.youzan.beauty.util.database.MetaUtil;
-import com.youzan.beauty.util.database.Table;
+import io.github.minpod.firecode.FireCodeUtils;
+import io.github.minpod.firecode.database.MetaUtil;
+import io.github.minpod.firecode.database.Table;
 
 import org.junit.Test;
 

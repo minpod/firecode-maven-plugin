@@ -1,7 +1,7 @@
-package com.youzan.beauty.util;
+package io.github.minpod.firecode;
 
-import com.youzan.beauty.util.database.MetaUtil;
-import com.youzan.beauty.util.database.Table;
+import io.github.minpod.firecode.database.MetaUtil;
+import io.github.minpod.firecode.database.Table;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
