@@ -1,0 +1,57 @@
+package ${base}#if("${module}"!="").${module}#end.dal.mapper;
+
+
+import ${base}#if("${module}"!="").${module}#end.dal.dataobject.${clazzName}DO;
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}UpdateParam;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}GetQuery;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}SearchQuery;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+
+/**
+* Created by ${author}
+* Time ${time}
+* Desc
+*/
+@Mapper
+public interface ${clazzName}Mapper {
+
+/**
+* 查询
+* @param ${javaName}GetQuery
+* @return
+*/
+${clazzName}DO get${clazzName}(${clazzName}GetQuery ${javaName}GetQuery);
+
+/**
+* COUNT
+* @param ${javaName}SearchQuery
+* @return
+*/
+int count${clazzName}(${clazzName}SearchQuery ${javaName}SearchQuery);
+
+/**
+* 查询列表
+* @param ${javaName}SearchQuery
+* @return
+*/
+List<${clazzName}DO> list${clazzName}(${clazzName}SearchQuery ${javaName}SearchQuery);
+
+/**
+* 新增
+* @param ${javaName}DO
+* @return
+*/
+int insert${clazzName}(${clazzName}DO ${javaName}DO);
+
+/**
+* 更新
+* @param ${javaName}UpdateParam
+* @return
+*/
+int update${clazzName}(${clazzName}UpdateParam ${javaName}UpdateParam);
+}

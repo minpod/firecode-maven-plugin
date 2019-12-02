@@ -1,0 +1,53 @@
+package ${base}#if("${module}"!="").${module}#end.manager;
+
+
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}CreateParam;
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}UpdateParam;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}GetQuery;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}SearchQuery;
+import ${base}#if("${module}"!="").${module}#end.model.dto.${clazzName}DTO;
+
+import java.util.List;
+
+/**
+* Created by ${author}
+* Time ${time}
+* Desc
+*/
+public interface ${clazzName}Manager {
+
+/**
+* 新增
+* @param ${javaName}CreateParam
+* @return
+*/
+Long create${clazzName}(${clazzName}CreateParam ${javaName}CreateParam);
+
+/**
+* 查询
+* @param ${javaName}GetQuery
+* @return
+*/
+${clazzName}DTO get${clazzName}(${clazzName}GetQuery ${javaName}GetQuery);
+
+/**
+* 更新
+* @param ${javaName}UpdateParam
+* @return
+*/
+int update${clazzName}(${clazzName}UpdateParam ${javaName}UpdateParam);
+
+/**
+* count
+* @param ${javaName}SearchQuery
+* @return
+*/
+int count${clazzName}(${clazzName}SearchQuery ${javaName}SearchQuery);
+
+/**
+* 列表查询
+* @param ${javaName}SearchQuery
+* @return
+*/
+List<${clazzName}DTO> list${clazzName}(${clazzName}SearchQuery ${javaName}SearchQuery);
+}

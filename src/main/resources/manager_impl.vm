@@ -1,0 +1,58 @@
+package ${base}#if("${module}"!="").${module}#end.manager.impl;
+
+import ${base}#if("${module}"!="").${module}#end.dal.dataobject.${clazzName}DO;
+import ${base}#if("${module}"!="").${module}#end.dal.mapper.${clazzName}Mapper;
+import ${base}#if("${module}"!="").${module}#end.manager.${clazzName}Manager;
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}CreateParam;
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}UpdateParam;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}GetQuery;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}SearchQuery;
+import ${base}#if("${module}"!="").${module}#end.model.dto.${clazzName}DTO;
+import ${base}#if("${module}"!="").${module}#end.utils.${clazzName}TransUtils;
+
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+
+/**
+* Created by ${author}
+* Time ${time}
+* Desc
+*/
+@Component
+public class ${clazzName}ManagerImpl implements ${clazzName}Manager{
+
+@Resource
+private ${clazzName}Mapper ${javaName}Mapper;
+
+@Override
+public ${clazzName}DTO get${clazzName}(${clazzName}GetQuery ${javaName}GetQuery) {
+return ${clazzName}TransUtils.tran2${clazzName}DTO(${javaName}Mapper.get${clazzName}(${javaName}GetQuery));
+}
+
+@Override
+public Long create${clazzName}(${clazzName}CreateParam ${javaName}CreateParam) {
+${clazzName}DO ${javaName}DO = ${clazzName}TransUtils.tran2${clazzName}DO(${javaName}CreateParam);
+${javaName}Mapper.insert${clazzName}(${javaName}DO);
+return ${javaName}DO.getId();
+}
+
+@Override
+public int update${clazzName}(${clazzName}UpdateParam ${javaName}UpdateParam) {
+return ${javaName}Mapper.update${clazzName}(${javaName}UpdateParam);
+}
+
+@Override
+public int count${clazzName}(${clazzName}SearchQuery ${javaName}SearchQuery) {
+return ${javaName}Mapper.count${clazzName}(${javaName}SearchQuery);
+}
+
+@Override
+public List<${clazzName}DTO> list${clazzName}(${clazzName}SearchQuery ${javaName}SearchQuery) {
+List<${clazzName}DO> ${javaName}DOList = ${javaName}Mapper.list${clazzName}(${javaName}SearchQuery);
+return ${clazzName}TransUtils.tran2${clazzName}DTOList(${javaName}DOList);
+}
+}

@@ -1,0 +1,87 @@
+package ${base}#if("${module}"!="").${module}#end.service.impl;
+
+import com.youzan.mei.common.constant.MeiCode;
+import com.youzan.mei.common.utils.JsonUtils;
+import com.youzan.mei.common.utils.ResultUtils;
+import com.youzan.mei.common.valid.groups.Kdt;
+import com.youzan.mei.common.valid.groups.Page;
+import ${base}#if("${module}"!="").${module}#end.manager.${clazzName}Manager;
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}CreateParam;
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}UpdateParam;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}GetQuery;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}SearchQuery;
+import ${base}#if("${module}"!="").${module}#end.model.dto.${clazzName}DTO;
+import ${base}#if("${module}"!="").${module}#end.service.${clazzName}Service;
+
+import com.youzan.api.common.response.PlainResult;
+import com.youzan.api.common.response.PaginatorResult;
+
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.validation.groups.Default;
+
+import lombok.extern.slf4j.Slf4j;
+
+
+/**
+* Created by ${author}
+* Time ${time}
+* Desc
+*/
+@Service
+@Slf4j
+public class ${clazzName}ServiceImpl implements ${clazzName}Service {
+
+@Resource
+private ${clazzName}Manager ${javaName}Manager;
+
+@Override
+public PlainResult<Long> create${clazzName}(@Validated({Kdt.class, Default.class}) ${clazzName}CreateParam ${javaName}CreateParam) {
+        Long id = ${javaName}Manager.create${clazzName}(${javaName}CreateParam);
+        return ResultUtils.plainResult(id);
+        }
+
+@Override
+public PlainResult
+<${clazzName}DTO> get${clazzName}(@Validated({Kdt.class, Default.class}) ${clazzName}GetQuery ${javaName}GetQuery) {
+        //todo param validate
+        ${clazzName}DTO ${javaName}DTO = ${javaName}Manager.get${clazzName}(${javaName}GetQuery);
+        return ResultUtils.plainResult(${javaName}DTO);
+        }
+
+        @Override
+        public PaginatorResult
+        <${clazzName}DTO> search${clazzName}WithPage(@Validated({Kdt.class, Page.class, Default.class}) ${clazzName}SearchQuery ${javaName}SearchQuery) {
+                int count = ${javaName}Manager.count${clazzName}(${javaName}SearchQuery);
+                if(count > 0) {
+                    List<${clazzName}DTO> list = ${javaName}Manager.list${clazzName}(${javaName}SearchQuery);
+                    return ResultUtils.pageResult(${javaName}SearchQuery.getPage(), ${javaName}SearchQuery.getPageSize(), count, list);
+                    } else {
+                        return ResultUtils.pageEmptyResult(${javaName}SearchQuery.getPage(), ${javaName}SearchQuery.getPageSize());
+                }
+                    }
+
+
+                    @Override
+                    public PlainResult<Integer> update${clazzName}(@Validated({Kdt.class, Default.class}) ${clazzName}UpdateParam ${javaName}UpdateParam) {
+                            //todo param validate
+                            ${clazzName}GetQuery ${javaName}GetQuery = new ${clazzName}GetQuery();
+                            #foreach($entry in $columnMap.entrySet())
+                                #set($column=$entry.value)
+                                #if($column.index && "${column.columnName}"!="id")
+                                    ${javaName}GetQuery.set${column.clazzName}(${javaName}UpdateParam.get${column.clazzName}());
+                                #end
+                            #end
+                            ${clazzName}DTO ${javaName}DTO = ${javaName}Manager.get${clazzName}(${javaName}GetQuery);
+                            if (${javaName}DTO == null) {
+                                return ResultUtils.plainFailResult(MeiCode.DATA_NOT_FOUND);
+                            }else {
+                                int update = ${javaName}Manager.update${clazzName}(${javaName}UpdateParam);
+                                return ResultUtils.plainResult(update);
+                            }
+}
+}

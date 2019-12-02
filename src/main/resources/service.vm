@@ -1,0 +1,54 @@
+package ${base}#if("${module}"!="").${module}#end.service;
+
+import com.youzan.api.common.response.PlainResult;
+import com.youzan.api.common.response.PaginatorResult;
+
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}CreateParam;
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}UpdateParam;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}GetQuery;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}SearchQuery;
+import ${base}#if("${module}"!="").${module}#end.model.dto.${clazzName}DTO;
+
+
+/**
+* Created by ${author}
+* Time ${time}
+* Desc
+*/
+public interface ${clazzName}Service {
+
+
+/**
+* 创建
+* @param ${javaName}CreateParam
+* @return
+*/
+PlainResult
+<Long> create${clazzName}(${clazzName}CreateParam ${javaName}CreateParam);
+
+    /**
+    * 查询
+    *
+    * @param ${javaName}GetQuery
+    * @return
+    */
+    PlainResult
+    <${clazzName}DTO> get${clazzName}(${clazzName}GetQuery ${javaName}GetQuery);
+
+        /**
+        * 分页查询 最大200，默认20
+        *
+        * @param ${javaName}SearchQuery
+        * @return
+        */
+        PaginatorResult
+        <${clazzName}DTO> search${clazzName}WithPage(${clazzName}SearchQuery ${javaName}SearchQuery);
+
+            /**
+            * 更新
+            * @param ${javaName}UpdateParam
+            * @return
+            */
+            PlainResult
+            <Integer> update${clazzName}(${clazzName}UpdateParam ${javaName}UpdateParam);
+                }

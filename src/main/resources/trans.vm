@@ -1,0 +1,68 @@
+package ${base}#if("${module}"!="").${module}#end.utils;
+
+import ${base}#if("${module}"!="").${module}#end.dal.dataobject.${clazzName}DO;
+
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}CreateParam;
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}UpdateParam;
+import ${base}#if("${module}"!="").${module}#end.model.dto.${clazzName}DTO;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+
+/**
+* Created by ${author}
+* Time ${time}
+* Desc
+*/
+public class ${clazzName}TransUtils {
+
+public static ${clazzName}DO tran2${clazzName}DO(${clazzName}CreateParam ${javaName}CreateParam) {
+${clazzName}DO ${javaName}DO = new ${clazzName}DO();
+
+#foreach($entry in $columnMap.entrySet())
+    #set($column=$entry.value)
+    ${javaName}DO.set${column.clazzName}(${javaName}CreateParam.get${column.clazzName}());
+#end
+return ${javaName}DO;
+}
+
+public static ${clazzName}DO tran2${clazzName}DO(${clazzName}UpdateParam ${javaName}UpdateParam) {
+${clazzName}DO ${javaName}DO = new ${clazzName}DO();
+
+#foreach($entry in $columnMap.entrySet())
+    #set($column=$entry.value)
+    ${javaName}DO.set${column.clazzName}(${javaName}UpdateParam.get${column.clazzName}());
+#end
+return ${javaName}DO;
+}
+
+
+public static ${clazzName}DTO tran2${clazzName}DTO(${clazzName}DO ${javaName}DO) {
+if (${javaName}DO == null) {
+return null;
+}
+
+${clazzName}DTO ${javaName}DTO = new ${clazzName}DTO();
+
+#foreach($entry in $columnMap.entrySet())
+    #set($column=$entry.value)
+    ${javaName}DTO.set${column.clazzName}(${javaName}DO.get${column.clazzName}());
+#end
+
+return ${javaName}DTO;
+}
+
+public static List
+<${clazzName}DTO> tran2${clazzName}DTOList(List
+    <${clazzName}DO> ${javaName}DOList) {
+        if (${javaName}DOList == null) {
+        return Collections.emptyList();
+        }
+        List
+        <${clazzName}DTO> ${javaName}DTOList = new ArrayList<>();
+            ${javaName}DOList.forEach(${javaName}DO -> ${javaName}DTOList.add(tran2${clazzName}DTO(${javaName}DO)));
+            return ${javaName}DTOList;
+            }
+            }

@@ -1,0 +1,108 @@
+package ${base}#if("${module}"!="").${module}#end.service;
+
+import com.youzan.api.common.response.PaginatorResult;
+import com.youzan.api.common.response.PlainResult;
+import com.youzan.mei.BaseTest;
+import com.youzan.mei.common.test.DataInitUtils;
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}CreateParam;
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}UpdateParam;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}GetQuery;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}SearchQuery;
+import ${base}#if("${module}"!="").${module}#end.model.dto.${clazzName}DTO;
+import ${base}#if("${module}"!="").${module}#end.service.${clazzName}Service;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+
+/**
+* Created by ${author}
+* Time ${time}
+* Desc
+*/
+public class ${clazzName}ServiceTest extends BaseTest {
+
+@Resource
+private ${clazzName}Service ${javaName}Service;
+
+@Test
+public void create${clazzName}() {
+${clazzName}CreateParam ${javaName}CreateParam = new ${clazzName}CreateParam();
+DataInitUtils.initObj(${javaName}CreateParam);
+${javaName}CreateParam.setId(null);
+PlainResult
+<Long> result = ${javaName}Service.create${clazzName}(${javaName}CreateParam);
+
+    ${clazzName}GetQuery ${javaName}GetQuery = new ${clazzName}GetQuery();
+    #foreach($entry in $columnMap.entrySet())
+        #set($column=$entry.value)
+        #if($column.index && "${column.columnName}"!="id")
+            ${javaName}GetQuery.set${column.clazzName}(${javaName}CreateParam.get${column.clazzName}());
+        #end
+    #end
+    ${clazzName}DTO get = ${javaName}Service.get${clazzName}(${javaName}GetQuery).getData();
+    Assert.assertTrue(get != null);
+    }
+
+    @Test
+    public void get${clazzName}() {
+    ${clazzName}CreateParam ${javaName}CreateParam = new ${clazzName}CreateParam();
+    DataInitUtils.initObj(${javaName}CreateParam);
+    ${javaName}CreateParam.setId(null);
+    ${javaName}Service.create${clazzName}(${javaName}CreateParam);
+
+    ${clazzName}GetQuery ${javaName}GetQuery = new ${clazzName}GetQuery();
+    #foreach($entry in $columnMap.entrySet())
+        #set($column=$entry.value)
+        #if($column.index && "${column.columnName}"!="id")
+            ${javaName}GetQuery.set${column.clazzName}(${javaName}CreateParam.get${column.clazzName}());
+        #end
+    #end
+    ${clazzName}DTO get = ${javaName}Service.get${clazzName}(${javaName}GetQuery).getData();
+    Assert.assertTrue(get != null);
+    }
+
+    @Test
+    public void search${clazzName}() throws InterruptedException {
+    ${clazzName}CreateParam ${javaName}CreateParam = new ${clazzName}CreateParam();
+    DataInitUtils.initObj(${javaName}CreateParam);
+    ${javaName}CreateParam.setId(null);
+    ${javaName}Service.create${clazzName}(${javaName}CreateParam);
+
+    ${clazzName}SearchQuery ${javaName}SearchQuery = new ${clazzName}SearchQuery();
+    #foreach($entry in $columnMap.entrySet())
+        #set($column=$entry.value)
+        #if($column.index && "${column.columnName}"!="id")
+            ${javaName}SearchQuery.set${column.clazzName}(${javaName}CreateParam.get${column.clazzName}());
+        #end
+    #end
+    PaginatorResult<${clazzName}DTO> result = ${javaName}Service.search${clazzName}WithPage(${javaName}SearchQuery);
+        Assert.assertTrue(result.isSuccess());
+        Assert.assertTrue(result.getData().getPaginator().getTotalCount() == 1);
+        Assert.assertTrue(result.getData().getItems() != null);
+        }
+
+        //@Test
+        public void update${clazzName}() throws InterruptedException {
+        ${clazzName}CreateParam ${javaName}CreateParam = new ${clazzName}CreateParam();
+        DataInitUtils.initObj(${javaName}CreateParam);
+        ${javaName}CreateParam.setId(null);
+        PlainResult
+        <Long> result = ${javaName}Service.create${clazzName}(${javaName}CreateParam);
+            Assert.assertTrue(result.getData() > 0);
+            Thread.sleep(1000L);
+            ${clazzName}UpdateParam ${javaName}UpdateParam = new ${clazzName}UpdateParam();
+            #foreach($entry in $columnMap.entrySet())
+                #set($column=$entry.value)
+                #if($column.index && "${column.columnName}"!="id")
+                    ${javaName}UpdateParam.set${column.clazzName}(${javaName}CreateParam.get${column.clazzName}());
+                #end
+            #end
+            PlainResult<Integer> updateResult = ${javaName}Service.update${clazzName}(${javaName}UpdateParam);
+            Assert.assertTrue(updateResult.getData() > 0);
+            }
+            }

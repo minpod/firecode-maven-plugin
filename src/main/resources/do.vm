@@ -1,0 +1,20 @@
+package ${base}#if("${module}"!="").${module}#end.dal.dataobject;
+
+import java.util.Date;
+
+import lombok.Data;
+
+/**
+* Created by ${author}
+* Time ${time}
+* Desc
+*/
+@Data
+public class ${clazzName}DO {
+
+#foreach($entry in $columnMap.entrySet())
+    #set($column=$entry.value)
+private ${column.simpleClazz} ${column.javaName};     //${column.comment}
+
+#end
+}

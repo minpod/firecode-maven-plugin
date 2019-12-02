@@ -1,0 +1,26 @@
+package ${base}#if("${module}"!="").${module}#end.model.query;
+
+import com.youzan.mei.common.model.PageQuery;
+import java.io.Serializable;
+import java.util.Date;
+import lombok.Data;
+import lombok.ToString;
+
+/**
+* Created by ${author}
+* Time ${time}
+* Desc
+*/
+@Data
+@ToString(callSuper = true)
+public class ${clazzName}SearchQuery extends PageQuery implements Serializable {
+
+private static final long serialVersionUID = 1L;
+
+#foreach($entry in $columnMap.entrySet())
+    #set($column=$entry.value)
+    #if($column.index && "${column.javaName}"!="kdtId" && "${column.javaName}"!="deptId" )
+    private ${column.simpleClazz} ${column.javaName};     //${column.comment}
+    #end
+#end
+}

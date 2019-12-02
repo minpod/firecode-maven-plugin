@@ -1,0 +1,117 @@
+package ${base}#if("${module}"!="").${module}#end.mapper;
+
+import com.youzan.mei.BaseDaoTest;
+import com.youzan.mei.common.test.DataInitUtils;
+import ${base}#if("${module}"!="").${module}#end.dal.dataobject.${clazzName}DO;
+import ${base}#if("${module}"!="").${module}#end.dal.mapper.${clazzName}Mapper;
+
+import ${base}#if("${module}"!="").${module}#end.model.param.${clazzName}UpdateParam;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}GetQuery;
+import ${base}#if("${module}"!="").${module}#end.model.query.${clazzName}SearchQuery;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+
+/**
+* Created by ${author}
+* Time ${time}
+* Desc
+*/
+public class ${clazzName}MapperTest extends BaseDaoTest {
+
+@Resource
+private ${clazzName}Mapper ${javaName}Mapper;
+
+@Test
+public void get${clazzName}() {
+${clazzName}DO ${javaName}DO = new ${clazzName}DO();
+DataInitUtils.initObj(${javaName}DO);
+${javaName}DO.setId(null);
+${javaName}Mapper.insert${clazzName}(${javaName}DO);
+
+${clazzName}GetQuery ${javaName}GetQuery = new ${clazzName}GetQuery();
+#foreach($entry in $columnMap.entrySet())
+    #set($column=$entry.value)
+    #if($column.index && "${column.columnName}"!="id")
+        ${javaName}GetQuery.set${column.clazzName}(${javaName}DO.get${column.clazzName}());
+    #end
+#end
+${clazzName}DO get = ${javaName}Mapper.get${clazzName}(${javaName}GetQuery);
+Assert.assertTrue(get != null);
+//if fail please check column length
+}
+
+@Test
+public void insert${clazzName}() {
+${clazzName}DO ${javaName}DO = new ${clazzName}DO();
+DataInitUtils.initObj(${javaName}DO);
+${javaName}DO.setId(null);
+${javaName}Mapper.insert${clazzName}(${javaName}DO);
+Assert.assertTrue(${javaName}DO.getId() > 0);
+}
+
+//@Test
+public void update${clazzName}() throws Exception {
+${clazzName}DO ${javaName}DO = new ${clazzName}DO();
+DataInitUtils.initObj(${javaName}DO);
+${javaName}DO.setId(null);
+${javaName}Mapper.insert${clazzName}(${javaName}DO);
+
+Thread.sleep(1000L);
+
+${clazzName}UpdateParam ${javaName}UpdateParam = new ${clazzName}UpdateParam();
+DataInitUtils.initObj(${javaName}UpdateParam);
+#foreach($entry in $columnMap.entrySet())
+    #set($column=$entry.value)
+    #if($column.index && "${column.columnName}"!="id")
+        ${javaName}UpdateParam.set${column.clazzName}(${javaName}DO.get${column.clazzName}());
+    #end
+#end
+
+
+int update = ${javaName}Mapper.update${clazzName}(${javaName}UpdateParam);
+Assert.assertTrue(update > 0);
+}
+
+@Test
+public void count${clazzName}() {
+${clazzName}DO ${javaName}DO = new ${clazzName}DO();
+DataInitUtils.initObj(${javaName}DO);
+${javaName}DO.setId(null);
+${javaName}Mapper.insert${clazzName}(${javaName}DO);
+
+${clazzName}SearchQuery ${javaName}SearchQuery = new ${clazzName}SearchQuery();
+#foreach($entry in $columnMap.entrySet())
+    #set($column=$entry.value)
+    #if($column.index && "${column.columnName}"!="id")
+        ${javaName}SearchQuery.set${column.clazzName}(${javaName}DO.get${column.clazzName}());
+    #end
+#end
+int count = ${javaName}Mapper.count${clazzName}(${javaName}SearchQuery);
+Assert.assertTrue(count > 0);
+}
+
+@Test
+public void list${clazzName}() {
+${clazzName}DO ${javaName}DO = new ${clazzName}DO();
+DataInitUtils.initObj(${javaName}DO);
+${javaName}DO.setId(null);
+${javaName}Mapper.insert${clazzName}(${javaName}DO);
+
+${clazzName}SearchQuery ${javaName}SearchQuery = new ${clazzName}SearchQuery();
+#foreach($entry in $columnMap.entrySet())
+    #set($column=$entry.value)
+    #if($column.index && "${column.columnName}"!="id")
+        ${javaName}SearchQuery.set${column.clazzName}(${javaName}DO.get${column.clazzName}());
+    #end
+#end
+List
+<${clazzName}DO> list = ${javaName}Mapper.list${clazzName}(${javaName}SearchQuery);
+    Assert.assertTrue(list.size() > 0);
+    }
+    }

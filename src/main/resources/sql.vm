@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${base}#if("${module}"!="").${module}#end.dal.mapper.${clazzName}Mapper">
+
+    <sql id="table">
+        `${tableName}`
+    </sql>
+
+    <sql id="insertColumns">
+        #foreach($entry in $columnMap.entrySet())
+            #set($column=$entry.value)
+            #if("${column.columnName}" != "id" && "${column.columnName}" != "updated_at" && "${column.columnName}" != "created_at")
+                #set($columnName=${column.columnName})
+        `${columnName}`,$!{empty}
+            #end
+        #end
+        `created_at`,
+        `updated_at`
+    </sql>
+
+    <sql id="allColumns">
+        `id`,
+        <include refid="insertColumns"/>
+    </sql>
+
+    <insert id="insert${clazzName}" parameterType="${base}#if("${module}"!="").${module}#end.dal.dataobject.${clazzName}DO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        <include refid="table"/>
+        (
+        <include refid="insertColumns"/>
+        )
+        VALUES(
+        #foreach($entry in $columnMap.entrySet())
+            #set($column=$entry.value)
+            #if("${column.javaName}" != "id" && "${column.javaName}" != "updatedAt" && "${column.javaName}" != "createdAt")
+        #{${column.javaName}},$!{empty}
+            #end
+        #end
+        NOW(),
+        NOW())
+    </insert>
+
+    <select id="get${clazzName}" parameterType="${base}#if("${module}"!="").${module}#end.model.query.${clazzName}GetQuery" resultType="${base}#if("${module}"!="").${module}#end.dal.dataobject.${clazzName}DO">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        <include refid="table"/>
+        WHERE
+        1=1
+        #foreach($entry in $columnMap.entrySet())
+            #set($column=$entry.value)
+            #if($column.index && "${column.columnName}"!="id")
+        <if test="${column.javaName} != null #if($column.number)and ${column.javaName} > 0#end">
+        AND `${column.columnName}` = #{${column.javaName}}$!{empty}
+        </if>
+            #end
+        #end
+        limit 1
+    </select>
+
+    <sql id="listQuery">
+        #foreach($entry in $columnMap.entrySet())
+            #set($column=$entry.value)
+            #if($column.index && "${column.columnName}"!="id")
+                <if test="${column.javaName} != null #if($column.number)and ${column.javaName} > 0#end">
+                    AND `${column.columnName}` = #{${column.javaName}}$!{empty}
+                </if>
+            #end
+        #end
+    </sql>
+
+    <select id="count${clazzName}" parameterType="${base}#if("${module}"!="").${module}#end.model.query.${clazzName}SearchQuery" resultType="int">
+        SELECT COUNT(*) FROM <include refid="table"/>
+        WHERE
+        1=1
+        <include refid="listQuery"/>
+    </select>
+
+    <select id="list${clazzName}" parameterType="${base}#if("${module}"!="").${module}#end.model.query.${clazzName}SearchQuery" resultType="${base}#if("${module}"!="").${module}#end.dal.dataobject.${clazzName}DO">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        <include refid="table"/>
+        WHERE
+        1=1
+        <include refid="listQuery"/>
+        ORDER BY
+        `created_at` DESC
+        limit #{pageStart},#{pageSize}
+    </select>
+
+    <!-- <update id="update${clazzName}" parameterType="${base}#if("${module}"!="").${module}#end.model.param.${clazzName}UpdateParam">
+        UPDATE
+        <include refid="table"/>
+        SET
+        `updated_at` = NOW()
+        WHERE
+        1=1
+        #foreach($entry in $columnMap.entrySet())
+            #set($column=$entry.value)
+            #if($column.index && "${column.columnName}"!="id")
+        <if test="${column.javaName} != null #if($column.number)and ${column.javaName} > 0#end">
+        AND `${column.columnName}` = #{${column.javaName}}$!{empty}
+        </if>
+            #end
+        #end
+    </update> -->
+</mapper>
