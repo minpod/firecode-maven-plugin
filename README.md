@@ -7,7 +7,7 @@
 ##1.引入依赖
 ```
 <plugin>
-<groupId>com.youzan.beauty.util</groupId>
+<groupId>io.github.minpod</groupId>
 <artifactId>firecode-maven-plugin</artifactId>
 <version>1.0.0-SNAPSHOT</version>
 </plugin>
@@ -16,19 +16,19 @@
 ```
 <config>
     <author>菊花</author>
-    <basePackage>com.youzan.beauty.spa</basePackage>
-    <module>security</module>
+    <basePackage>io.github.minpod.demo</basePackage>
+    <module>order</module>
 
     <!--数据库连接参数 目前只支持mysql-->
-    <database>jdbc:mysql://10.9.51.13:3008/beauty?useSSL=false</database>
-    <user>user_beauty</user>
-    <password>i6SXNjDAByLabCdw8GEu</password>
+    <database>jdbc:mysql://127.0.0.1:3306/demo?useSSL=false</database>
+    <user>user</user>
+    <password>password</password>
 
     <!--表-->
-    <table>security_code_log</table>
+    <table>service_order</table>
     <!--默认使用表名对应的转换类名,如果需要自定义名字可配置以下两字段-->
-    <clazzName>SecurityCode</clazzName>
-    <javaName>securityCode</javaName>
+    <clazzName>ServiceOrder</clazzName>
+    <javaName>serviceOrder</javaName>
 
     <!--配置所要生成的类,默认为true-->
     <!-- 数据库代码 包括DO,MAPPER,XML-->
@@ -50,7 +50,7 @@
 
 ##3.运行maven插件firecode-maven-plugin:fire
 
-mvn com.youzan.beauty.util:firecode-maven-plugin:1.0.0-SNAPSHOT:fire
+mvn io.github.minpod:firecode-maven-plugin:1.0.0-SNAPSHOT:fire
 
 ###建议直接在maven视频中双击插件直接运行,整体配置如下
 
