@@ -9,7 +9,7 @@
 <plugin>
 <groupId>io.github.minpod</groupId>
 <artifactId>firecode-maven-plugin</artifactId>
-<version>1.0.0-SNAPSHOT</version>
+<version>x.x.x</version>
 </plugin>
 ```
 ##2.在项目resources目录中创建firecode.xml
